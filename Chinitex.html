@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#174c5b">
+    <meta name="description" content="Tus proyectos, conversaciones e ideas, en un lugar para avanzar.">
+    <title>Chinitex · Tu espacio para avanzar</title>
+    <style>
+:root {
+  color-scheme: light;
+  --ink: #183440;
+  --muted: #62747d;
+  --primary: #174c5b;
+  --primary-hover: #103b48;
+  --teal: #267c7c;
+  --teal-light: #e9f3f0;
+  --yellow: #f6dda2;
+  --yellow-light: #fff6df;
+  --background: #f5f7f8;
+  --surface: #ffffff;
+  --line: #e1e8e9;
+  --danger: #a13634;
+  --radius: 18px;
+  --shadow: 0 5px 18px rgba(25, 57, 66, .035);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  font-synthesis: none;
+  color: var(--ink);
+  background: var(--background);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; }
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { opacity: .55; cursor: wait; }
+button, a { touch-action: manipulation; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid #73aeb8; outline-offset: 3px; }
+button:focus:not(:focus-visible), main:focus:not(:focus-visible) { outline: none; }
+a { color: #25677e; text-underline-offset: 3px; }
+svg { width: 20px; height: 20px; flex: 0 0 auto; stroke-linecap: round; stroke-linejoin: round; }
+h1, h2, h3, h4, p { margin-top: 0; }
+h1, h2, h3, h4 { line-height: 1.25; letter-spacing: -.025em; }
+h1 { font-size: clamp(1.6rem, 2.7vw, 2.1rem); font-weight: 680; margin: 4px 0 0; }
+h2 { font-size: 1.35rem; font-weight: 660; }
+h3 { font-size: 1.05rem; font-weight: 650; }
+p { line-height: 1.65; }
+button { color: inherit; }
+[hidden] { display: none !important; }
+.screen-reader-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; z-index: 100; top: 10px; left: 10px; transform: translateY(-150%); background: var(--primary); color: #fff; border-radius: 8px; padding: 12px 18px; }
+.skip-link:focus { transform: translateY(0); }
+
+.app-shell { min-height: 100vh; display: grid; grid-template-columns: 238px minmax(0, 1fr); }
+.sidebar { background: #fff; border-right: 1px solid var(--line); padding: 31px 20px 23px; display: flex; flex-direction: column; gap: 33px; position: sticky; top: 0; height: 100vh; min-height: 600px; }
+.brand { display: flex; align-items: center; gap: 11px; padding: 0 7px; }
+.brand-mark { display: grid; place-items: center; position: relative; width: 42px; height: 44px; border-radius: 13px; background: var(--primary); color: #fff; font-size: 38px; font-weight: 750; line-height: 1; padding-bottom: 7px; }
+.brand-mark span { position: absolute; right: 6px; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); }
+.brand strong { display: block; font-size: 1.4rem; font-weight: 730; letter-spacing: -.045em; }
+.brand div > span { display: block; color: var(--muted); font-size: .68rem; margin-top: 1px; }
+.main-nav { display: grid; gap: 6px; }
+.nav-button { border: 0; border-radius: 11px; padding: 13px 15px; display: flex; align-items: center; gap: 13px; color: #647780; background: transparent; text-align: left; font-size: .94rem; font-weight: 570; transition: background .15s, color .15s; }
+.nav-button:hover { color: var(--primary); background: #f3f7f7; }
+.nav-button.is-active, .nav-button.active, .nav-button[aria-current="page"] { color: var(--primary); background: #eaf2f3; font-weight: 680; }
+.nav-button.is-active svg, .nav-button.active svg, .nav-button[aria-current="page"] svg { stroke-width: 2; }
+.sidebar-note { background: #f8f6ee; border-radius: 14px; padding: 18px 16px; margin: auto 3px 0; }
+.note-symbol { color: #a37b28; font-size: 23px; }
+.sidebar-note p { font-size: .88rem; line-height: 1.5; margin: 9px 0 6px; font-weight: 600; }
+.sidebar-note > span:last-child { color: #857c69; font-size: .75rem; line-height: 1.6; display: block; }
+.sidebar-footer { padding: 0 8px; display: flex; align-items: flex-start; gap: 8px; color: var(--muted); font-size: .72rem; line-height: 1.6; }
+.status-dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; background: #6b9b83; }
+.workspace { width: 100%; max-width: 1600px; padding: 34px 42px 64px; min-width: 0; }
+.workspace-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 25px 22px; margin-bottom: 28px; }
+.eyebrow { display: block; color: #7c8b91; font-size: .64rem; font-weight: 720; letter-spacing: .12em; }
+.header-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 9px; }
+.header-actions .button { font-size: .78rem; padding: 10px 12px; }
+.header-actions svg { width: 16px; height: 16px; }
+.search-box { display: flex; align-items: center; gap: 10px; width: 100%; grid-column: 1 / -1; background: #fff; border: 1px solid var(--line); border-radius: 12px; color: #7e9198; padding: 0 16px; min-height: 49px; transition: border-color .15s, box-shadow .15s; }
+.search-box:focus-within { border-color: #6d9fab; box-shadow: 0 0 0 3px #dcebf0; }
+.search-box input { min-width: 0; width: 100%; background: transparent; border: none; padding: 13px 0; outline: 0 !important; color: var(--ink); font-size: .9rem; }
+.search-box input::placeholder { color: #8a989d; }
+#view { min-height: 55vh; }
+
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 10px 15px; border: 1px solid transparent; border-radius: 9px; font-size: .85rem; line-height: 1.35; font-weight: 620; text-decoration: none; background: #edf2f3; color: var(--primary); transition: background .15s, border-color .15s, transform .15s; }
+.button:hover { background: #e2ebed; }
+.button:active { transform: translateY(1px); }
+.button.primary { color: #fff; background: var(--primary); border-color: var(--primary); }
+.button.primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.button.secondary { color: var(--ink); background: #fff; border-color: #d7e0e3; }
+.button.secondary:hover { border-color: #9bb5bc; background: #f9fbfb; }
+.button.ghost { color: var(--muted); background: transparent; }
+.button.ghost:hover { color: var(--primary); background: #edf2f3; }
+.button.small { padding: 7px 10px; font-size: .75rem; border-radius: 7px; }
+.button.icon { padding: 8px; min-width: 34px; min-height: 34px; }
+.button.danger { background: #fff0ee; color: var(--danger); }
+.button.danger:hover { background: #ffe2de; }
+.button[aria-pressed="true"] { border-color: #4b8c8c; background: #e2f0ec; color: #205c58; }
+.card { border: 1px solid var(--line); border-radius: var(--radius); padding: 23px; background: var(--surface); box-shadow: var(--shadow); min-width: 0; }
+.card h2:last-child, .card h3:last-child, .card p:last-child { margin-bottom: 0; }
+.card + .card { margin-top: 16px; }
+.grid > .card + .card, .stats-grid > .card + .card, .split > .card + .card { margin-top: 0; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr)); gap: 16px; }
+.grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.split { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, 1fr); gap: 22px; align-items: start; }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+.stack > .card + .card { margin-top: 0; }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.row.between { justify-content: space-between; }
+.section-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 30px 0 15px; }
+.section-heading:first-child { margin-top: 0; }
+.section-heading h2, .section-heading h3, .section-heading p { margin-bottom: 0; }
+.section-heading p { font-size: .85rem; color: var(--muted); }
+.muted { color: var(--muted); }
+.small { font-size: .8rem; }
+.eyebrow + h2 { margin-top: 8px; }
+.hero { background: linear-gradient(112deg, #e6f0f0, #edf3ef); border: 1px solid #d7e5e1; border-radius: 20px; padding: 30px; position: relative; overflow: hidden; }
+.hero h2 { font-size: clamp(1.55rem, 2.5vw, 2rem); line-height: 1.22; max-width: 650px; margin-bottom: 12px; }
+.hero p { max-width: 690px; color: #526e76; font-size: .93rem; margin-bottom: 20px; }
+.hero .eyebrow { color: #537e80; margin-bottom: 9px; }
+.hero .button { margin-right: 6px; margin-top: 4px; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; margin: 20px 0 28px; }
+.stat { padding: 18px 20px; border: 1px solid var(--line); background: #fff; border-radius: 13px; min-width: 0; }
+.stat strong, .stat .value { display: block; color: var(--primary); font-size: 1.8rem; letter-spacing: -.045em; font-weight: 700; line-height: 1.2; margin: 5px 0 7px; }
+.stat span, .stat .label { font-size: .78rem; color: var(--muted); }
+.stat p { font-size: .72rem; margin: 4px 0 0; color: #839297; }
+.pill, .badge, .chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; color: #46676f; background: #edf3f3; border-radius: 6px; font-size: .69rem; font-weight: 600; line-height: 1.45; white-space: normal; }
+.pill.yellow, .badge.warning, .chip.warning { background: var(--yellow-light); color: #896322; }
+.pill.green, .badge.success { color: #336b52; background: #eaf4eb; }
+.pill.blue, .badge.info { color: #3b627c; background: #eaf1f8; }
+.badge[data-area="cas"] { color: #77548a; background: #f3ecf8; }
+.badge[data-area="familia"] { color: #946f31; background: #fcf3df; }
+.badge[data-area="ocio"] { color: #416f60; background: #e9f3eb; }
+.count { min-width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; padding: 0 6px; color: #6b7e85; background: #edf1f3; border-radius: 6px; font-size: .72rem; font-weight: 600; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin: 0 0 18px; }
+.toolbar p { margin: 0; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; }
+.filters label { display: inline-flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--muted); }
+.filters select { min-height: 37px; padding: 7px 29px 7px 11px; border-radius: 8px; background-color: #fff; border: 1px solid #d9e3e5; color: #46616c; font-size: .8rem; }
+.filters input[type="checkbox"] { accent-color: var(--primary); width: 15px; height: 15px; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.tabs button { border: 1px solid transparent; border-radius: 8px; background: transparent; padding: 8px 12px; font-weight: 600; font-size: .8rem; color: var(--muted); }
+.tabs button.active, .tabs button[aria-selected="true"] { border-color: #d7e7e5; background: #eaf3f0; color: #2a6a64; }
+.list { display: grid; gap: 12px; }
+.conversation-card { padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-radius: 12px; transition: border-color .15s, box-shadow .15s; min-width: 0; }
+.conversation-card:hover { border-color: #b6cdd0; box-shadow: var(--shadow); }
+.conversation-card h3 { margin: 0 0 6px; font-size: 1rem; }
+.conversation-card p { margin: 10px 0 12px; font-size: .83rem; color: #667c85; line-height: 1.6; overflow-wrap: anywhere; }
+.conversation-card .row { gap: 7px; }
+.conversation-card .source-label { margin-top: 7px; }
+.source-label { display: block; color: #8a999e; font-size: .7rem; overflow-wrap: anywhere; }
+.conversation-title { background: transparent; border: 0; padding: 0; text-align: left; font: inherit; color: inherit; font-weight: inherit; }
+.conversation-title:hover { color: var(--teal); }
+.conversation-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+.empty-state { text-align: center; color: var(--muted); padding: 42px 24px; background: #fff; border: 1px dashed #cddadc; border-radius: 15px; }
+.empty-state h2, .empty-state h3 { color: var(--ink); margin-bottom: 8px; }
+.empty-state p { max-width: 470px; margin: 0 auto 18px; font-size: .88rem; }
+.empty-state .button { margin: 4px; }
+.suggestion-card { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: #fff; min-width: 0; }
+.suggestion-card .pill { margin-bottom: 10px; }
+.suggestion-card h3 { font-size: .98rem; margin-bottom: 7px; }
+.suggestion-card p { font-size: .82rem; color: var(--muted); margin-bottom: 16px; }
+.suggestion-card .button { font-size: .75rem; }
+.task-card { border: 1px solid #dce5e6; background: #fff; border-radius: 11px; padding: 15px; box-shadow: 0 2px 6px #18344003; }
+.task-card h3 { font-size: .9rem; line-height: 1.45; margin-bottom: 8px; overflow-wrap: anywhere; }
+.task-card p { font-size: .78rem; color: var(--muted); margin-bottom: 12px; overflow-wrap: anywhere; }
+.task-card .button { font-size: .7rem; }
+.task-card .row { gap: 6px; }
+.task-card select { max-width: 100%; border: 1px solid #dce5e6; background: #f9fbfb; border-radius: 6px; padding: 5px 7px; color: #56717c; font-size: .73rem; }
+.kanban { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 17px; align-items: start; }
+.kanban-column { padding: 15px; border: 1px solid #e2e8e9; background: #eef2f3; border-radius: 14px; min-height: 200px; }
+.kanban-column > h2, .kanban-column > h3 { font-size: .85rem; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 3px 2px 15px; color: #506a74; }
+.kanban-column > .task-card + .task-card { margin-top: 10px; }
+.kanban-column .empty-state { border: none; padding: 25px 8px; background: transparent; font-size: .8rem; }
+.project-card { position: relative; }
+.project-card h3 { margin: 10px 0 8px; }
+.project-card dl { display: grid; grid-template-columns: 100px 1fr; gap: 6px 12px; font-size: .8rem; margin: 15px 0; }
+.project-card dt { color: #8a999e; }
+.project-card dd { margin: 0; color: #536c76; overflow-wrap: anywhere; }
+.timeline { display: grid; gap: 12px; margin: 15px 0; padding-left: 15px; border-left: 2px solid #d9e7e6; }
+.timeline > div { position: relative; padding-left: 5px; }
+.timeline > div::before { content: ""; position: absolute; width: 7px; height: 7px; top: 8px; left: -20px; border-radius: 50%; background: #6b9f9c; box-shadow: 0 0 0 3px #fff; }
+.timeline p { margin: 3px 0; font-size: .82rem; }
+.area-label { font-size: .7rem; font-weight: 650; text-transform: uppercase; letter-spacing: .06em; color: #789096; }
+.notice { padding: 14px 17px; border-radius: 10px; background: var(--yellow-light); color: #7d693e; font-size: .8rem; line-height: 1.6; margin: 16px 0; }
+.notice p:last-child { margin-bottom: 0; }
+.pagination { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin: 20px 0; font-size: .8rem; color: var(--muted); }
+mark { color: #5b4b1e; background: #f7e7ad; border-radius: 2px; padding: 0 2px; }
+
+dialog { color: var(--ink); border: 1px solid #d7e2e5; border-radius: 19px; padding: 0; width: min(700px, calc(100vw - 36px)); max-height: 88vh; max-height: 88dvh; box-shadow: 0 25px 90px #102d3a38; background: #fff; overflow: auto; }
+dialog::backdrop { background: #18344065; backdrop-filter: blur(3px); }
+dialog > form, dialog > .modal-body, dialog > .reader-content { padding: 27px; }
+.modal-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 22px; }
+.modal-header h2 { font-size: 1.3rem; margin: 1px 0 6px; }
+.modal-header p { margin: 0; color: var(--muted); font-size: .83rem; }
+.modal-header .button { flex-shrink: 0; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 9px; flex-wrap: wrap; margin-top: 23px; padding-top: 18px; border-top: 1px solid var(--line); }
+.field { display: flex; flex-direction: column; gap: 6px; margin: 0 0 15px; min-width: 0; }
+.field > span, .field > label, label.field { font-weight: 600; font-size: .82rem; }
+.field small { color: var(--muted); font-weight: 400; font-size: .73rem; }
+.field input, .field select, .field textarea { width: 100%; color: var(--ink); background: #fff; border: 1px solid #cfdbde; border-radius: 8px; padding: 10px 11px; font-weight: 400; font-size: .88rem; min-height: 42px; }
+.field input::placeholder, .field textarea::placeholder { color: #95a3a8; }
+.field textarea { min-height: 92px; resize: vertical; line-height: 1.6; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+.form-grid .full { grid-column: 1 / -1; }
+.reader-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: .74rem; color: var(--muted); margin: 0 0 20px; }
+.message { padding: 16px 18px; background: #f4f7f7; border: 1px solid #e4ebeb; border-radius: 10px; margin: 11px 0; overflow-wrap: anywhere; }
+.message time, .message .source-label { display: block; margin-bottom: 8px; font-size: .7rem; color: #84979d; }
+.message p, .message pre, .message .text { white-space: pre-wrap; font-family: inherit; font-size: .86rem; color: #3a5660; line-height: 1.7; margin: 0; overflow-wrap: anywhere; }
+.reader-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+.reader-title { padding-right: 20px; }
+.toast { position: fixed; z-index: 30; bottom: 25px; left: calc(50% + 119px); transform: translate(-50%, 12px); background: #183f4d; color: #fff; padding: 13px 20px; border: 1px solid #41616b; border-radius: 11px; box-shadow: 0 8px 24px #1834402b; max-width: min(520px, calc(100vw - 40px)); font-size: .85rem; line-height: 1.5; }
+.toast:not([hidden]) { animation: toast-enter .18s ease-out both; }
+@keyframes toast-enter { to { transform: translate(-50%, 0); opacity: 1; } from { transform: translate(-50%, 8px); opacity: 0; } }
+
+@media (min-width: 1500px) { .workspace { padding-left: 54px; padding-right: 54px; } }
+@media (max-width: 1200px) {
+  .app-shell { grid-template-columns: 210px minmax(0,1fr); }
+  .sidebar { padding: 28px 14px 22px; }
+  .brand { gap: 9px; padding: 0 5px; }
+  .brand strong { font-size: 1.3rem; }
+  .brand div > span { font-size: .62rem; }
+  .workspace { padding: 29px 28px 48px; }
+  .workspace-header { gap: 20px 16px; }
+  .header-actions { gap: 5px; }
+  .header-actions .button { font-size: .74rem; padding: 9px; }
+  .header-actions .button svg { display: none; }
+  .split { grid-template-columns: minmax(0, 1.2fr) minmax(240px, 1fr); gap: 16px; }
+  .toast { left: calc(50% + 105px); }
+}
+
+@media (max-width: 980px) {
+  .workspace-header { grid-template-columns: 1fr; }
+  .header-actions { justify-content: flex-start; grid-row: 3; }
+  .search-box { grid-row: 2; }
+  .header-actions .button { padding: 9px 12px; font-size: .78rem; }
+  .header-actions .button svg { display: block; }
+  .split, .grid.three { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .kanban { gap: 10px; }
+  .kanban-column { padding: 11px; }
+}
+
+@media (max-width: 760px) {
+  .app-shell { display: block; }
+  .sidebar { height: auto; min-height: 0; padding: 16px 18px 0; position: static; border-right: 0; border-bottom: 1px solid var(--line); gap: 14px; }
+  .brand { padding: 0 2px; gap: 9px; }
+  .brand-mark { width: 35px; height: 36px; border-radius: 10px; font-size: 32px; padding-bottom: 6px; }
+  .brand-mark span { width: 6px; height: 6px; top: 7px; right: 5px; }
+  .brand strong { font-size: 1.25rem; }
+  .brand div > span { font-size: .65rem; }
+  .main-nav { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; }
+  .nav-button { flex-direction: column; justify-content: center; text-align: center; gap: 5px; padding: 10px 5px 11px; font-size: .7rem; border-radius: 9px 9px 0 0; }
+  .nav-button svg { width: 19px; height: 19px; }
+  .sidebar-note, .sidebar-footer { display: none; }
+  .workspace { padding: 24px 18px 40px; }
+  .workspace-header { gap: 16px; margin-bottom: 23px; }
+  .eyebrow { font-size: .6rem; }
+  .header-actions { gap: 7px; }
+  .header-actions .button { flex: 1 1 auto; padding: 10px 9px; font-size: .72rem; gap: 5px; }
+  .header-actions .button svg { width: 14px; height: 14px; }
+  .search-box { min-height: 46px; padding: 0 12px; }
+  .search-box input { font-size: .85rem; padding: 12px 0; }
+  .hero { padding: 24px 21px; border-radius: 16px; }
+  .hero p { font-size: .87rem; }
+  .card { padding: 20px; border-radius: 14px; }
+  .section-heading { margin-top: 25px; }
+  .section-heading h2 { font-size: 1.2rem; }
+  .stats-grid { gap: 10px; margin: 16px 0 24px; }
+  .stat { padding: 14px 15px; border-radius: 11px; }
+  .stat strong, .stat .value { font-size: 1.65rem; }
+  .stat span, .stat .label { font-size: .73rem; }
+  .grid.two, .grid.three, .kanban { grid-template-columns: 1fr; }
+  .kanban-column { padding: 14px; min-height: 120px; }
+  .toolbar { align-items: flex-start; }
+  .filters { gap: 8px; width: 100%; }
+  .filters select { max-width: 100%; }
+  .conversation-card { padding: 16px; }
+  .conversation-card h3 { font-size: .95rem; }
+  .conversation-card .source-label { font-size: .66rem; }
+  .form-grid { grid-template-columns: 1fr; gap: 0; }
+  dialog { width: calc(100vw - 22px); max-height: 92vh; max-height: 92dvh; border-radius: 14px; }
+  dialog > form, dialog > .modal-body, dialog > .reader-content { padding: 21px; }
+  .message { padding: 13px 14px; }
+  .toast { left: 50%; bottom: 17px; font-size: .8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+@media print {
+  :root { font-size: 11px; color: #000; background: #fff; }
+  .app-shell { display: block; }
+  .sidebar, .workspace-header, .toast, .button, .filters, .tabs, .pagination { display: none !important; }
+  .workspace { padding: 0; max-width: none; }
+  .card, .conversation-card, .task-card { box-shadow: none; break-inside: avoid; border: 1px solid #ccc; }
+  .kanban, .split { grid-template-columns: 1fr; }
+  dialog[open] { position: static; display: block; width: 100%; max-height: none; border: 0; box-shadow: none; }
+}
+
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 28px; align-items: center; }
+.hero-aside { display: grid; gap: 5px; padding: 23px 18px; text-align: center; background: #ffffff94; border: 1px solid #fff; border-radius: 16px; }
+.hero-number { display: block; font-size: 3.5rem; font-weight: 750; line-height: 1.15; color: var(--primary); letter-spacing: -.06em; }
+.hero-aside strong { font-size: .82rem; }
+.hero-aside .muted { font-size: .68rem; }
+.stat { text-align: left; transition: border-color .15s; }
+.stat:hover { border-color: #87aaa9; }
+.stat-label, .stat .source-label { display: block; }
+.suggestions-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; margin-bottom: 28px; }
+.suggestions-grid > .card + .card, .conversation-grid > .card + .card, .project-grid > .card + .card { margin-top: 0; }
+.suggestion-card { display: flex; flex-direction: column; }
+.suggestion-card > .row { margin-top: auto; }
+.conversation-grid, .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.conversation-card .card-heading { justify-content: space-between; align-items: flex-start; flex-wrap: nowrap; }
+.conversation-title { font-weight: 660; font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
+.bookmark { font-size: 1.25rem; line-height: 1; flex: 0 0 auto; padding: 5px; }
+.bookmark.saved { color: #986b15; }
+.conversation-card .excerpt { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; min-height: 4.8em; }
+.toolbar > select, .reader-search input { max-width: 100%; min-height: 40px; padding: 8px 11px; color: var(--ink); background: white; border: 1px solid #cfdbde; border-radius: 8px; }
+.check-label { display: flex; align-items: center; gap: 7px; font-size: .78rem; }
+.check-label input { width: 16px; height: 16px; accent-color: var(--primary); }
+.working-list { padding-left: 20px; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+.working-list li + li { margin-top: 8px; }
+.load-more { display: flex; justify-content: center; margin: 22px 0; }
+.empty-symbol { display: block; color: #a8873d; font-size: 1.7rem; margin-bottom: 10px; }
+.empty-column { padding: 15px 3px; font-size: .8rem; }
+.notes-text, .source-text { white-space: pre-wrap; }
+.task-card .overdue { color: var(--danger); }
+.project-next { background: #f2f6f5; padding: 13px; border-radius: 9px; margin-bottom: 14px; }
+.project-next p { margin: 5px 0 0; font-size: .85rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+dialog > .modal-header { position: sticky; top: 0; z-index: 1; margin: 0; padding: 22px 26px; background: #fff; border-bottom: 1px solid var(--line); }
+.dialog-body { padding: 24px 26px; }
+.reader-dialog { width: min(940px, calc(100vw - 36px)); }
+.reader-meta { display: block; }
+.reader-meta .row { margin-bottom: 9px; }
+.reader-search { margin: 22px 0 10px; }
+.reader-search input { width: 100%; }
+.pill.area-cas { color: #76528b; background: #f3ecf8; }
+.pill.area-familia { color: #91672f; background: #fcf3df; }
+.pill.area-ocio { color: #416f60; background: #e9f3eb; }
+@media (max-width: 1100px) { .suggestions-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; gap: 20px; }
+  .hero-aside { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 12px; padding: 13px; }
+  .hero-number { font-size: 2.2rem; }
+  .hero-aside .muted { flex-basis: 100%; }
+  .suggestions-grid, .conversation-grid, .project-grid { grid-template-columns: 1fr; }
+  .toolbar { gap: 12px; }
+  .toolbar > select { flex: 1 1 120px; min-width: 0; }
+  dialog > .modal-header { padding: 18px; }
+  .dialog-body { padding: 18px; }
+  .reader-dialog { width: calc(100vw - 22px); }
+}
+
+</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#view">Ir al contenido</a>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand" aria-label="Chinitex">
+          <span class="brand-mark" aria-hidden="true">c<span></span></span>
+          <div><strong>Chinitex</strong><span>Tu espacio para avanzar</span></div>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <button class="nav-button is-active" type="button" data-view="home" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19Z"/><path d="M9 20.5v-7h6v7"/></svg>
+            <span>Inicio</span>
+          </button>
+          <button class="nav-button" type="button" data-view="library">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3.5h4v17H5zM9 3.5h4v17H9zM14 4.5l3.6-1 4.2 16.4-3.7 1z"/></svg>
+            <span>Biblioteca</span>
+          </button>
+          <button class="nav-button" type="button" data-view="projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 7.5V5A1.5 1.5 0 0 1 5 3.5h5l2 3h7A1.5 1.5 0 0 1 20.5 8v11a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19Z"/><path d="M3.5 9.5h17"/></svg>
+            <span>Proyectos</span>
+          </button>
+          <button class="nav-button" type="button" data-view="week">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 2.5v6m9-6v6M3.5 10.5h17m-13 4h3m3 0h3m-9 3h3"/></svg>
+            <span>Mi semana</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="note-symbol" aria-hidden="true">✦</span>
+          <p>Lo que ya trabajaste también puede ayudarte hoy.</p>
+          <span>Busca, reúne y sigue avanzando.</span>
+        </div>
+
+        <footer class="sidebar-footer">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Guarda una copia para conservar tus cambios.</span>
+        </footer>
+      </aside>
+
+      <div class="workspace">
+        <header class="workspace-header">
+          <div class="page-intro">
+            <span class="eyebrow">HECHO PARA TU DÍA A DÍA</span>
+            <h1 id="page-title">Tu espacio de hoy</h1>
+          </div>
+          <div class="header-actions">
+            <button id="import-trigger" class="button ghost" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 14v5a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-5"/></svg>
+              <span>Importar chats</span>
+            </button>
+            <input id="import-files" type="file" multiple accept=".json,application/json" hidden>
+            <button id="export-backup" class="button secondary" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 14v5a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-5"/></svg>
+              <span>Guardar copia</span>
+            </button>
+            <button id="quick-task" class="button primary" type="button"><span aria-hidden="true">＋</span><span>Nueva tarea</span></button>
+          </div>
+          <label class="search-box" for="global-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+            <span class="screen-reader-only">Buscar en todo el historial de conversaciones</span>
+            <input id="global-search" type="search" placeholder="Busca un informe, un modelo o una idea…" autocomplete="off">
+          </label>
+        </header>
+
+        <main id="view" tabindex="-1" aria-label="Contenido principal"></main>
+        <noscript><div class="card">Activa JavaScript en tu navegador para buscar en tus chats y organizar tus proyectos.</div></noscript>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+    <script type="application/json" id="archive-data">{"archive":[],"generatedAt":"2026-10-22T23:25:01.180Z"}</script>
+<script type="module">
+/**
+ * Data-only helpers for Chinitex. Conversation content is never evaluated.
+ * Export timestamps are kept in seconds, as provided by ChatGPT.
+ */
+
+const AREAS = new Set(['trabajo', 'cas', 'familia', 'personal', 'auto', 'ocio', 'otros']);
+const TASK_STATUSES = new Set(['pending', 'doing', 'done']);
+const PROJECT_STATUSES = new Set(['por-confirmar', 'en-curso', 'cerrado']);
+const NON_USER_TEXT_TYPES = new Set(['thoughts', 'thought', 'reasoning', 'reasoning_recap', 'analysis']);
+const searchCache = new WeakMap();
+
+function isRecord(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const prototype = Object.getPrototypeOf(value);
+  return prototype === Object.prototype || prototype === null;
+}
+
+function own(object, key) {
+  return isRecord(object) && Object.prototype.hasOwnProperty.call(object, key);
+}
+
+function text(value, limit = Infinity) {
+  return typeof value === 'string' ? value.slice(0, limit) : '';
+}
+
+function identifier(value) {
+  return text(value, 512).trim();
+}
+
+function validSeconds(value) {
+  return typeof value === 'number'
+    && Number.isFinite(value)
+    && value >= 0
+    && Number.isFinite(new Date(value * 1000).getTime());
+}
+
+function time(value) {
+  if (typeof value === 'number') return validSeconds(value) ? value : null;
+  if (typeof value !== 'string' || !value.trim()) return null;
+  const number = Number(value);
+  if (!Number.isNaN(number)) return validSeconds(number) ? number : null;
+  const parsed = Date.parse(value);
+  return validSeconds(parsed / 1000) ? parsed / 1000 : null;
+}
+
+function normalizedTime(value) {
+  return value === null || validSeconds(value);
+}
+
+export function normalizeText(value) {
+  const input = typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean'
+    ? String(value)
+    : '';
+  return input.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+}
+
+function userText(content) {
+  if (!isRecord(content) || NON_USER_TEXT_TYPES.has(content.content_type)) return '';
+  const parts = [];
+  if (Array.isArray(content.parts)) {
+    for (const part of content.parts) {
+      if (typeof part === 'string') {
+        parts.push(part);
+      } else if (isRecord(part)
+        && !NON_USER_TEXT_TYPES.has(part.content_type)
+        && !NON_USER_TEXT_TYPES.has(part.type)) {
+        if (typeof part.text === 'string') parts.push(part.text);
+        if (typeof part.transcription === 'string' && part.transcription !== part.text) {
+          parts.push(part.transcription);
+        }
+      }
+    }
+  }
+  if (parts.length === 0 && typeof content.text === 'string') parts.push(content.text);
+  return parts.join('\n').trim();
+}
+
+/** Ignores auxiliary export lists that do not contain ChatGPT mappings. */
+export function extractConversations(payload, source = '') {
+  if (!Array.isArray(payload)) return [];
+  const result = [];
+  for (const conversation of payload) {
+    if (!isRecord(conversation) || !isRecord(conversation.mapping)) continue;
+    const id = identifier(conversation.id) || identifier(conversation.conversation_id);
+    if (!id) continue;
+    const mapping = conversation.mapping;
+    const activeNodes = new Set();
+    let nodeId = identifier(conversation.current_node);
+    while (nodeId && own(mapping, nodeId) && !activeNodes.has(nodeId)) {
+      activeNodes.add(nodeId);
+      const node = mapping[nodeId];
+      nodeId = isRecord(node) ? identifier(node.parent) : '';
+    }
+
+    const messages = [];
+    let userMessageCount = 0;
+    for (const [key, node] of Object.entries(mapping)) {
+      if (!isRecord(node) || !isRecord(node.message)) continue;
+      const message = node.message;
+      if (!isRecord(message.author) || message.author.role !== 'user') continue;
+      userMessageCount += 1;
+      const body = userText(message.content);
+      if (!body) continue;
+      messages.push({
+        id: identifier(message.id) || `${id}:${key}`,
+        createdAt: time(message.create_time),
+        text: body,
+        active: activeNodes.has(key),
+      });
+    }
+
+    result.push({
+      id,
+      title: text(conversation.title).trim() || 'Sin título',
+      createdAt: time(conversation.create_time),
+      updatedAt: time(conversation.update_time),
+      source: text(source),
+      userMessageCount,
+      messages,
+    });
+  }
+  return result;
+}
+
+/** Tags are deliberately derived from titles, not asserted as personal facts. */
+export function categories(conversation) {
+  const title = normalizeText(conversation?.title);
+  const result = [];
+  if (/informe|expediente|\btdr\b|presupuesto|contrat|\bcui\b|\bobra\b|obras|consultor|cronograma|partida|proyecto|vial|ingenier|evaluacion|supervision|memorando|conformidad|metrado|\bs10\b|\bproject\b|\bword\b|\bexcel\b|firma|\bpdf\b/.test(title)) result.push('trabajo');
+  if (/\bcas\b|laboral|prorroga|vacaciones/.test(title)) result.push('cas');
+  if (/famil|hij[oa]|esposa|escolar|primaria|preescolar|ninos?|ninas?|rimas?|adivinanzas|dia del padre|dia de la madre/.test(title)) result.push('familia');
+  if (/^change$|rutina|habito|descanso|aliment|desayuno|bajar.{0,20}peso|salud|sueno|movil|celular|tramite|ahorr|\bgastos?\b|suscrip|\bpago\b|prestamo|financiam|tarjeta|interbank/.test(title)) result.push('personal');
+  if (/carro|\bautos?\b|vehicul|nissan|\bmarch\b|manejar|conduc|\bsoat\b|brevete/.test(title)) result.push('auto');
+  if (/floyd|musica|cancion|album|futbol|mundial|messi|peloteada|aburrimiento|nebulosa|astronom|universo|galax|exorcista|pelicula|lectura|evangelio|laberinto|canicas|receta|chaufa|papas fritas|canchita|cocin|serie/.test(title)) result.push('ocio');
+  return result.length ? result : ['otros'];
+}
+
+export function isModelCandidate(conversation) {
+  return /almacen|guardar|\bmodelos?\b|antecedente|referencia/.test(normalizeText(conversation?.title));
+}
+
+function indexedText(conversation) {
+  if (!isRecord(conversation)) return '';
+  let cached = searchCache.get(conversation);
+  if (cached === undefined) {
+    const messages = Array.isArray(conversation.messages) ? conversation.messages : [];
+    cached = normalizeText([text(conversation.title), ...messages.map(message => text(message?.text))].join('\n'));
+    searchCache.set(conversation, cached);
+  }
+  return cached;
+}
+
+function latestTime(conversation) {
+  return time(conversation?.updatedAt) ?? time(conversation?.createdAt) ?? 0;
+}
+
+export function searchArchive(archive, {
+  query = '',
+  area = 'all',
+  modelsOnly = false,
+  bookmarkedOnly = false,
+  bookmarks = [],
+  sort = 'recent',
+} = {}) {
+  if (!Array.isArray(archive)) return [];
+  const tokens = normalizeText(query).trim().split(/\s+/).filter(Boolean);
+  const saved = new Set(Array.isArray(bookmarks) ? bookmarks : []);
+  const results = archive.filter(conversation => {
+    if (!isRecord(conversation)) return false;
+    if (area !== 'all' && !categories(conversation).includes(area)) return false;
+    if (modelsOnly && !isModelCandidate(conversation)) return false;
+    if (bookmarkedOnly && !saved.has(conversation.id)) return false;
+    if (tokens.length === 0) return true;
+    const haystack = indexedText(conversation);
+    return tokens.every(token => haystack.includes(token));
+  });
+  if (sort === 'title') {
+    return results.sort((a, b) => text(a.title).localeCompare(text(b.title), 'es', { numeric: true }));
+  }
+  if (sort === 'oldest') return results.sort((a, b) => latestTime(a) - latestTime(b));
+  if (sort === 'relevance' && tokens.length) {
+    const score = conversation => {
+      const title = normalizeText(conversation.title);
+      return tokens.reduce((sum, token) => sum + (title.includes(token) ? 1 : 0), 0);
+    };
+    return results.sort((a, b) => score(b) - score(a) || latestTime(b) - latestTime(a));
+  }
+  return results.sort((a, b) => latestTime(b) - latestTime(a));
+}
+
+export function mergeConversations(existing, incoming) {
+  const merged = new Map();
+  for (const conversation of [...(Array.isArray(existing) ? existing : []), ...(Array.isArray(incoming) ? incoming : [])]) {
+    if (!isRecord(conversation) || !identifier(conversation.id)) continue;
+    const previous = merged.get(conversation.id);
+    if (!previous
+      || latestTime(conversation) > latestTime(previous)
+      || (latestTime(conversation) === latestTime(previous)
+        && (conversation.messages?.length ?? 0) >= (previous.messages?.length ?? 0))) {
+      merged.set(conversation.id, conversation);
+    }
+  }
+  return [...merged.values()];
+}
+
+export function createEmptyState() {
+  return { version: 1, tasks: [], projects: [], bookmarks: [], dismissedSuggestions: [] };
+}
+
+function uniqueStrings(value) {
+  return [...new Set((Array.isArray(value) ? value : []).map(identifier).filter(Boolean))];
+}
+
+function calendarDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return '';
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value ? value : '';
+}
+
+export function sanitizeState(input) {
+  const state = createEmptyState();
+  if (!isRecord(input)) return state;
+  const taskIds = new Set();
+  for (const candidate of Array.isArray(input.tasks) ? input.tasks : []) {
+    if (!isRecord(candidate)) continue;
+    const id = identifier(candidate.id);
+    const title = text(candidate.title, 500).trim();
+    if (!id || !title || taskIds.has(id)) continue;
+    taskIds.add(id);
+    state.tasks.push({
+      id,
+      title,
+      area: AREAS.has(candidate.area) ? candidate.area : 'personal',
+      status: TASK_STATUSES.has(candidate.status) ? candidate.status : 'pending',
+      due: calendarDate(candidate.due),
+      notes: text(candidate.notes, 20000),
+      createdAt: time(candidate.createdAt) ?? 0,
+    });
+  }
+  const projectIds = new Set();
+  for (const candidate of Array.isArray(input.projects) ? input.projects : []) {
+    if (!isRecord(candidate)) continue;
+    const id = identifier(candidate.id);
+    const name = text(candidate.name, 500).trim();
+    if (!id || !name || projectIds.has(id)) continue;
+    projectIds.add(id);
+    state.projects.push({
+      id,
+      name,
+      cui: text(candidate.cui, 80).trim(),
+      role: text(candidate.role, 500).trim(),
+      version: text(candidate.version, 120).trim(),
+      status: PROJECT_STATUSES.has(candidate.status) ? candidate.status : 'por-confirmar',
+      nextAction: text(candidate.nextAction, 2000),
+      source: text(candidate.source, 2000),
+      notes: text(candidate.notes, 20000),
+    });
+  }
+  state.bookmarks = uniqueStrings(input.bookmarks);
+  state.dismissedSuggestions = uniqueStrings(input.dismissedSuggestions);
+  return state;
+}
+
+function backupError(detail) {
+  return new Error(`La copia de Chinitex no es válida: ${detail}.`);
+}
+
+function copyNormalizedArchive(archive) {
+  if (!Array.isArray(archive)) throw backupError('falta la lista de conversaciones');
+  const clean = [];
+  for (const conversation of archive) {
+    if (!isRecord(conversation)
+      || !identifier(conversation.id)
+      || typeof conversation.title !== 'string'
+      || typeof conversation.source !== 'string'
+      || !normalizedTime(conversation.createdAt)
+      || !normalizedTime(conversation.updatedAt)
+      || !Array.isArray(conversation.messages)
+      || !Number.isSafeInteger(conversation.userMessageCount)
+      || conversation.userMessageCount < conversation.messages.length) {
+      throw backupError('una conversación tiene campos incompletos o incorrectos');
+    }
+    const messages = conversation.messages.map(message => {
+      if (!isRecord(message)
+        || !identifier(message.id)
+        || typeof message.text !== 'string'
+        || !message.text.trim()
+        || !normalizedTime(message.createdAt)
+        || typeof message.active !== 'boolean') {
+        throw backupError('un mensaje tiene campos incompletos o incorrectos');
+      }
+      return {
+        id: identifier(message.id),
+        createdAt: message.createdAt,
+        text: message.text,
+        active: message.active,
+      };
+    });
+    clean.push({
+      id: identifier(conversation.id),
+      title: conversation.title,
+      createdAt: conversation.createdAt,
+      updatedAt: conversation.updatedAt,
+      source: conversation.source,
+      userMessageCount: conversation.userMessageCount,
+      messages,
+    });
+  }
+  return mergeConversations([], clean);
+}
+
+export function makeBackup(archive, state) {
+  return {
+    format: 'chinitex-backup',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    archive: copyNormalizedArchive(archive),
+    state: sanitizeState(state),
+  };
+}
+
+export function parseBackup(payload) {
+  if (!isRecord(payload) || payload.format !== 'chinitex-backup' || payload.version !== 1) {
+    throw backupError('el formato o la versión no son compatibles');
+  }
+  if (!isRecord(payload.state)) throw backupError('falta el estado de tus proyectos y tareas');
+  return {
+    archive: copyNormalizedArchive(payload.archive),
+    state: sanitizeState(payload.state),
+  };
+}
+
+const Core = Object.freeze({ categories, createEmptyState, extractConversations, isModelCandidate, makeBackup, mergeConversations, normalizeText, parseBackup, sanitizeState, searchArchive });
+
+(() => {
+  'use strict';
+  const AREAS = { trabajo: 'Trabajo', cas: 'CAS y trámites', familia: 'Familia', personal: 'Personal', auto: 'Auto', ocio: 'Ocio', otros: 'Otros' };
+  const TASK_STATUS = { pending: 'Por hacer', doing: 'En curso', done: 'Hecho' };
+  const PROJECT_STATUS = { 'por-confirmar': 'Por confirmar', 'en-curso': 'En curso', cerrado: 'Cerrado' };
+  const STORAGE_KEY = 'chinitex.workspace.v1';
+  const SUGGESTIONS = [
+    { id: 'models', title: 'Reunir mis modelos de trabajo', area: 'trabajo', detail: 'Conservar el modelo elegido, su fuente y la última versión.', query: 'modelo' },
+    { id: 'followup', title: 'Actualizar un trámite laboral', area: 'cas', detail: 'Reunir lo presentado, el cargo y la siguiente actuación confirmada.', query: 'CAS' },
+    { id: 'car', title: 'Ordenar el mantenimiento del auto', area: 'auto', detail: 'Guardar servicios, documentos y próximas revisiones.', query: 'auto' },
+    { id: 'family', title: 'Preparar una actividad para mis hijos', area: 'familia', detail: 'Elegir una actividad breve adecuada para cada nivel.', query: 'ejercicios' },
+    { id: 'rest', title: 'Reservar un momento de descanso', area: 'ocio', detail: 'Elegir música, una salida o una actividad que disfrute.', query: 'música' },
+  ];
+  const view = document.getElementById('view');
+  const searchInput = document.getElementById('global-search');
+  const importInput = document.getElementById('import-files');
+  let bootstrap = { archive: [] };
+  try { bootstrap = JSON.parse(document.getElementById('archive-data')?.textContent || '{"archive":[]}'); } catch { /* Empty build remains usable. */ }
+  let archive = Array.isArray(bootstrap.archive) ? bootstrap.archive : [];
+  let workspace = Core.createEmptyState();
+  let storageAvailable = true;
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) workspace = Core.sanitizeState(JSON.parse(saved));
+  } catch { storageAvailable = false; }
+  let currentView = 'home';
+  let filters = { query: '', area: 'all', modelsOnly: false, bookmarkedOnly: false, sort: 'recent' };
+  let visibleResults = 24;
+  let toastTimer;
+  let searchTimer;
+
+  function h(tag, attrs = {}, ...children) {
+    const node = document.createElement(tag);
+    for (const [key, value] of Object.entries(attrs)) {
+      if (value === undefined || value === null || value === false) continue;
+      if (key === 'class') node.className = value;
+      else if (key.startsWith('on') && typeof value === 'function') node.addEventListener(key.slice(2).toLowerCase(), value);
+      else if (key === 'value') node.value = value;
+      else if (key === 'checked' || key === 'selected' || key === 'disabled') node[key] = Boolean(value);
+      else node.setAttribute(key, value === true ? '' : String(value));
+    }
+    const append = child => {
+      if (child === null || child === undefined || child === false) return;
+      if (Array.isArray(child)) child.forEach(append);
+      else node.append(child instanceof Node ? child : document.createTextNode(String(child)));
+    };
+    children.forEach(append);
+    return node;
+  }
+  function button(label, action, className = 'button secondary', attrs = {}) {
+    return h('button', { type: 'button', class: className, onclick: action, ...attrs }, label);
+  }
+  const uid = () => globalThis.crypto?.randomUUID?.() || `item-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  const textDate = seconds => {
+    if (!Number.isFinite(seconds)) return 'Sin fecha';
+    const date = new Date(seconds * 1000);
+    if (!Number.isFinite(date.getTime())) return 'Sin fecha';
+    return new Intl.DateTimeFormat('es-PE', { timeZone: 'America/Lima', day: 'numeric', month: 'short', year: 'numeric' }).format(date);
+  };
+  const dueText = date => date ? date.split('-').reverse().join('/') : 'Sin fecha asignada';
+  const today = () => new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/Lima' }).format(new Date());
+  function toast(message) {
+    const target = document.getElementById('toast');
+    target.textContent = message;
+    target.hidden = false;
+    target.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { target.classList.remove('visible'); target.hidden = true; }, 5500);
+  }
+  function persist() {
+    workspace = Core.sanitizeState(workspace);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(workspace)); storageAvailable = true; }
+    catch { storageAvailable = false; toast('Tus cambios siguen en esta sesión. Usa Guardar copia para conservarlos.'); }
+  }
+  function navigate(name) {
+    currentView = name;
+    for (const nav of document.querySelectorAll('[data-view]')) {
+      const selected = nav.dataset.view === name;
+      nav.classList.remove('is-active');
+      nav.classList.toggle('active', selected);
+      if (selected) nav.setAttribute('aria-current', 'page'); else nav.removeAttribute('aria-current');
+    }
+    document.getElementById('page-title').textContent = { home: 'Tu espacio', library: 'Biblioteca', projects: 'Proyectos', week: 'Mi semana' }[name];
+    render();
+  }
+  function goSearch(query, options = {}) {
+    filters = { ...filters, query, area: 'all', modelsOnly: false, bookmarkedOnly: false, ...options };
+    searchInput.value = query;
+    visibleResults = 24;
+    navigate('library');
+  }
+  function tags(conversation) {
+    return h('div', { class: 'row' }, Core.categories(conversation).map(area => h('span', { class: `pill area-${area}` }, AREAS[area] || area)));
+  }
+  function sectionHeading(title, action) {
+    return h('div', { class: 'section-heading' }, h('h2', {}, title), action);
+  }
+  function empty(title, text, action) {
+    return h('div', { class: 'empty-state' }, h('span', { class: 'empty-symbol', 'aria-hidden': 'true' }, '✦'), h('h3', {}, title), h('p', { class: 'muted' }, text), action);
+  }
+  function sourceSnippet(conversation) {
+    const tokens = Core.normalizeText(filters.query).split(/\s+/).filter(Boolean);
+    const message = conversation.messages.find(m => tokens.length && tokens.every(t => Core.normalizeText(m.text).includes(t))) || conversation.messages.find(m => m.text?.trim());
+    if (!message) return 'Este chat contiene mensajes sin texto extraíble.';
+    let start = 0;
+    if (tokens.length) start = Math.max(0, Core.normalizeText(message.text).indexOf(tokens[0]) - 65);
+    const excerpt = message.text.slice(start, start + 220).replace(/\s+/g, ' ');
+    return `${start ? '…' : ''}${excerpt}${message.text.length > start + 220 ? '…' : ''}`;
+  }
+  function toggleBookmark(id) {
+    workspace.bookmarks = workspace.bookmarks.includes(id) ? workspace.bookmarks.filter(x => x !== id) : [...workspace.bookmarks, id];
+    persist();
+    render();
+  }
+  function conversationCard(conversation) {
+    const saved = workspace.bookmarks.includes(conversation.id);
+    return h('article', { class: 'conversation-card card' },
+      h('div', { class: 'row card-heading' },
+        button(conversation.title, () => openReader(conversation), 'conversation-title'),
+        button(saved ? '★' : '☆', () => toggleBookmark(conversation.id), `button ghost bookmark ${saved ? 'saved' : ''}`, { 'aria-label': `${saved ? 'Quitar referencia' : 'Guardar referencia'}: ${conversation.title}`, 'aria-pressed': String(saved) })),
+      h('p', { class: 'source-label' }, `${textDate(conversation.updatedAt || conversation.createdAt)} · ${conversation.userMessageCount} mensajes tuyos`),
+      h('p', { class: 'excerpt' }, sourceSnippet(conversation)),
+      tags(conversation),
+      h('div', { class: 'modal-actions' }, button('Leer mensajes', () => openReader(conversation), 'button secondary small'), button('Usar en proyecto', () => openProjectEditor(null, conversation), 'button ghost small')));
+  }
+  function renderHome() {
+    const latest = archive.length ? Math.max(...archive.map(c => c.updatedAt || c.createdAt || 0)) : null;
+    const modelCount = archive.filter(Core.isModelCandidate).length;
+    const activeTasks = workspace.tasks.filter(t => t.status !== 'done');
+    view.append(h('section', { class: 'hero card' },
+      h('div', { class: 'hero-copy' }, h('span', { class: 'eyebrow' }, 'CHINITEX / TU CENTRO PERSONAL'), h('h2', {}, 'Tu información, lista para trabajar.'), h('p', {}, 'Encuentra lo que ya trabajaste, conserva tus referencias y elige tu siguiente paso.'),
+        h('div', { class: 'row' }, button('Explorar mi biblioteca', () => goSearch(''), 'button primary'), button('Crear mi primera ficha', () => openProjectEditor(), 'button secondary'))),
+      h('div', { class: 'hero-aside' }, h('span', { class: 'hero-number' }, archive.length.toLocaleString('es-PE')), h('strong', {}, 'conversaciones a mano'), h('span', { class: 'muted' }, latest ? `Historial hasta ${textDate(latest)}` : 'Importa tu exportación para empezar'))));
+    view.append(h('section', { class: 'stats-grid', 'aria-label': 'Resumen de tu espacio' },
+      stat('Conversaciones', archive.length, 'Busca también dentro de tus mensajes', () => goSearch('')),
+      stat('Modelos y antecedentes', modelCount, 'Referencias para revisar y conservar', () => goSearch('', { modelsOnly: true })),
+      stat('Referencias guardadas', workspace.bookmarks.filter(id => archive.some(c => c.id === id)).length, 'Las que marcaste con una estrella', () => goSearch('', { bookmarkedOnly: true })),
+      stat('Tareas abiertas', activeTasks.length, 'Solo las que tú añadiste', () => navigate('week'))));
+    const availableSuggestions = SUGGESTIONS.filter(s => !workspace.dismissedSuggestions.includes(s.id));
+    view.append(h('section', {}, sectionHeading('Un buen siguiente paso', h('span', { class: 'source-label' }, 'Sugerencias · sin fecha asignada')),
+      h('p', { class: 'muted' }, 'Elige lo que siga vigente. Una conversación antigua no significa que la tarea esté pendiente.'),
+      availableSuggestions.length ? h('div', { class: 'suggestions-grid' }, availableSuggestions.map(s => h('article', { class: 'suggestion-card card' },
+        h('span', { class: 'pill' }, AREAS[s.area]), h('h3', {}, s.title), h('p', { class: 'muted' }, s.detail),
+        h('div', { class: 'row' }, button('Añadir a mi tablero', () => openTaskEditor(null, s), 'button primary small'), button('Ver antecedentes', () => goSearch(s.query), 'button ghost small'))))) :
+      empty('Ya elegiste tus primeros pasos', 'Puedes crear más tareas cuando las necesites.', button('Nueva tarea', () => openTaskEditor(), 'button primary'))));
+    view.append(h('section', { class: 'split' },
+      h('div', { class: 'card' }, sectionHeading('Tu tablero', button('Ver todo', () => navigate('week'), 'button ghost small')),
+        activeTasks.length ? h('div', { class: 'stack' }, activeTasks.slice(0, 3).map(task => taskCard(task, true))) : h('p', { class: 'muted' }, 'Tu tablero empieza vacío. Añade una tarea propia o elige una de las sugerencias.')),
+      h('div', { class: 'card' }, sectionHeading('Tu forma de trabajar'), h('ul', { class: 'working-list' },
+        h('li', {}, 'Conserva el modelo y separa los datos reales del proyecto.'), h('li', {}, 'Anota la fuente y la última versión antes de continuar.'), h('li', {}, 'Asigna fechas solo cuando estén confirmadas.')),
+        h('p', { class: 'source-label' }, 'Tus tareas y fichas se guardan en este navegador. Guardar copia descarga el historial y tus cambios.'))));
+    if (!storageAvailable) view.prepend(h('p', { class: 'notice', role: 'status' }, 'El navegador no permite guardar cambios aquí. Mantén una copia descargada.'));
+  }
+  function stat(label, value, detail, action) {
+    return h('button', { type: 'button', class: 'stat card', onclick: action }, h('span', { class: 'stat-label' }, label), h('strong', { class: 'stat-value' }, value.toLocaleString('es-PE')), h('span', { class: 'source-label' }, detail));
+  }
+  function renderLibrary() {
+    const result = Core.searchArchive(archive, { ...filters, bookmarks: workspace.bookmarks });
+    const areaSelect = h('select', { id: 'library-area', 'aria-label': 'Filtrar por área', onchange: e => { filters.area = e.target.value; visibleResults = 24; render(); } },
+      h('option', { value: 'all' }, 'Todas las áreas'), Object.entries(AREAS).map(([id, label]) => h('option', { value: id }, label)));
+    areaSelect.value = filters.area;
+    const sortSelect = h('select', { id: 'library-sort', 'aria-label': 'Ordenar conversaciones', onchange: e => { filters.sort = e.target.value; render(); } }, h('option', { value: 'recent' }, 'Más recientes'), h('option', { value: 'oldest' }, 'Más antiguas'), h('option', { value: 'title' }, 'Por título'));
+    sortSelect.value = filters.sort;
+    view.append(h('div', { class: 'library-intro' }, h('p', { class: 'muted' }, 'Busca en títulos y en el texto de tus mensajes. Los temas son orientativos; las referencias no certifican modelos aprobados ni estados vigentes.')),
+      h('div', { class: 'toolbar card' }, areaSelect, sortSelect,
+        h('label', { class: 'check-label' }, h('input', { id: 'models-only', type: 'checkbox', checked: filters.modelsOnly, onchange: e => { filters.modelsOnly = e.target.checked; visibleResults = 24; render(); } }), 'Modelos y antecedentes'),
+        h('label', { class: 'check-label' }, h('input', { id: 'bookmarked-only', type: 'checkbox', checked: filters.bookmarkedOnly, onchange: e => { filters.bookmarkedOnly = e.target.checked; visibleResults = 24; render(); } }), 'Mis referencias'),
+        button('Limpiar filtros', () => goSearch(''), 'button ghost small')),
+      h('div', { class: 'section-heading' }, h('h2', { id: 'result-count', 'aria-live': 'polite' }, `${result.length} ${result.length === 1 ? 'conversación' : 'conversaciones'}`), filters.query ? h('span', { class: 'pill' }, `Búsqueda: ${filters.query}`) : h('span', { class: 'source-label' }, `${archive.length} en tu biblioteca`)));
+    if (!archive.length) { view.append(empty('Tu biblioteca está lista para recibir tus chats', 'Pulsa Importar y selecciona los archivos JSON de tu exportación. Puedes seleccionar varios a la vez.', button('Importar conversaciones', () => importInput.click(), 'button primary'))); return; }
+    if (!result.length) { view.append(empty('No encontré coincidencias', 'Prueba menos palabras o elimina los filtros de área y referencias.', button('Ver toda la biblioteca', () => goSearch(''), 'button secondary'))); return; }
+    view.append(h('div', { class: 'conversation-grid' }, result.slice(0, visibleResults).map(conversationCard)));
+    if (result.length > visibleResults) view.append(h('div', { class: 'load-more' }, button(`Mostrar más · ${Math.min(visibleResults, result.length)} de ${result.length}`, () => { visibleResults += 24; render(); }, 'button secondary')));
+  }
+  function createDialog(title, wide = false) {
+    const dialog = h('dialog', { class: wide ? 'reader-dialog' : 'editor-dialog', 'aria-label': title });
+    const body = h('div', { class: 'dialog-body' });
+    dialog.append(h('div', { class: 'modal-header' }, h('h2', {}, title), button('Cerrar', () => dialog.close(), 'button ghost small', { 'aria-label': `Cerrar ${title}` })), body);
+    dialog.addEventListener('close', () => dialog.remove(), { once: true });
+    dialog.addEventListener('click', e => { if (e.target === dialog) { const rect = dialog.getBoundingClientRect(); if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) dialog.close(); } });
+    document.body.append(dialog);
+    return { dialog, body, show: () => dialog.showModal() };
+  }
+  function openReader(conversation) {
+    const modal = createDialog(conversation.title, true);
+    const meta = h('div', { class: 'reader-meta' }, tags(conversation), h('p', { class: 'source-label' }, `${conversation.source || 'Exportación importada'} · ${conversation.userMessageCount} registros de mensajes tuyos · ${textDate(conversation.createdAt)}`), h('p', { class: 'muted' }, 'Se muestran tus mensajes, incluidas las ramas conservadas. Los PDF, imágenes y respuestas de ChatGPT no están incluidos aquí.'));
+    const saved = workspace.bookmarks.includes(conversation.id);
+    const saveButton = button(saved ? '★ Referencia guardada' : '☆ Guardar referencia', () => {
+      toggleBookmark(conversation.id);
+      const nowSaved = workspace.bookmarks.includes(conversation.id);
+      saveButton.textContent = nowSaved ? '★ Referencia guardada' : '☆ Guardar referencia';
+      saveButton.setAttribute('aria-pressed', String(nowSaved));
+    }, 'button secondary small', { 'aria-pressed': String(saved) });
+    const search = h('input', { type: 'search', placeholder: 'Filtrar mensajes de este chat', 'aria-label': 'Filtrar mensajes de este chat' });
+    const counter = h('p', { class: 'source-label', 'aria-live': 'polite' });
+    const list = h('div', { class: 'message-list' });
+    const footer = h('div', { class: 'load-more' });
+    let limit = 30;
+    function paintMessages() {
+      const tokens = Core.normalizeText(search.value).split(/\s+/).filter(Boolean);
+      const messages = conversation.messages.filter(m => tokens.every(t => Core.normalizeText(m.text).includes(t)));
+      counter.textContent = `${messages.length} mensajes con texto${tokens.length ? ' coincidentes' : ''}`;
+      list.replaceChildren(...messages.slice(0, limit).map(m => h('article', { class: 'message' }, h('div', { class: 'row' }, h('span', { class: 'source-label' }, textDate(m.createdAt)), !m.active ? h('span', { class: 'pill' }, 'Otra rama') : null), h('p', { class: 'message-text' }, m.text))));
+      footer.replaceChildren();
+      if (messages.length > limit) footer.append(button('Cargar más mensajes', () => { limit += 30; paintMessages(); }, 'button secondary'));
+      if (!messages.length) list.append(empty('No hay mensajes con ese texto', 'Prueba otra palabra. Las coincidencias globales también pueden estar repartidas entre mensajes.'));
+    }
+    search.addEventListener('input', () => { limit = 30; paintMessages(); });
+    modal.body.append(meta, h('div', { class: 'row' }, saveButton, button('Crear ficha de proyecto', () => { modal.dialog.close(); openProjectEditor(null, conversation); }, 'button primary small')), h('div', { class: 'reader-search' }, search), counter, list, footer);
+    paintMessages();
+    modal.show();
+  }
+  function field(label, name, value = '', options = {}) {
+    const input = options.multiline ? h('textarea', { name, id: `edit-${name}`, rows: options.rows || 3, maxlength: options.maxlength || 20000 }, value) : h('input', { name, id: `edit-${name}`, type: options.type || 'text', value, required: options.required, maxlength: options.maxlength || 500, placeholder: options.placeholder || '' });
+    return h('div', { class: `field ${options.full ? 'full' : ''}` }, h('label', { for: `edit-${name}` }, label), input);
+  }
+  function selectField(label, name, entries, value) {
+    const select = h('select', { name, id: `edit-${name}` }, Object.entries(entries).map(([id, text]) => h('option', { value: id }, text)));
+    select.value = value;
+    return h('div', { class: 'field' }, h('label', { for: `edit-${name}` }, label), select);
+  }
+  function openTaskEditor(existing = null, suggestion = null) {
+    const task = existing || { title: suggestion?.title || '', area: suggestion?.area || 'trabajo', status: 'pending', due: '', notes: suggestion?.detail || '' };
+    const modal = createDialog(existing ? 'Editar tarea' : 'Nueva tarea');
+    const form = h('form', { class: 'stack' },
+      field('Qué quieres hacer', 'title', task.title, { required: true, maxlength: 240, placeholder: 'Una siguiente acción concreta' }),
+      h('div', { class: 'form-grid' }, selectField('Área', 'area', AREAS, task.area), selectField('Estado', 'status', TASK_STATUS, task.status), field('Fecha, si ya está confirmada', 'due', task.due, { type: 'date' })),
+      field('Notas o fuente', 'notes', task.notes, { multiline: true }),
+      h('div', { class: 'modal-actions' }, existing ? button('Eliminar tarea', () => { if (confirm('¿Eliminar esta tarea?')) { workspace.tasks = workspace.tasks.filter(t => t.id !== existing.id); persist(); modal.dialog.close(); render(); toast('Tarea eliminada.'); } }, 'button ghost danger') : null,
+        button('Cancelar', () => modal.dialog.close(), 'button secondary'), h('button', { type: 'submit', class: 'button primary' }, 'Guardar tarea')));
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const values = new FormData(form);
+      const title = String(values.get('title') || '').trim();
+      if (!title) { form.elements.title.setCustomValidity('Escribe una acción concreta.'); form.elements.title.reportValidity(); return; }
+      const next = { id: existing?.id || uid(), title, area: values.get('area'), status: values.get('status'), due: values.get('due'), notes: String(values.get('notes') || '').trim(), createdAt: existing?.createdAt || Date.now() };
+      workspace.tasks = existing ? workspace.tasks.map(t => t.id === existing.id ? next : t) : [...workspace.tasks, next];
+      if (suggestion && !workspace.dismissedSuggestions.includes(suggestion.id)) workspace.dismissedSuggestions.push(suggestion.id);
+      persist(); modal.dialog.close(); render(); toast('Tarea guardada en tu tablero.');
+    });
+    form.elements.title.addEventListener('input', () => form.elements.title.setCustomValidity(''));
+    modal.body.append(form); modal.show(); form.elements.title.focus();
+  }
+  function taskCard(task, compact = false) {
+    const select = h('select', { class: 'task-status', 'aria-label': `Estado de ${task.title}`, onchange: e => {
+      workspace.tasks = workspace.tasks.map(t => t.id === task.id ? { ...t, status: e.target.value } : t); persist(); render();
+    } }, Object.entries(TASK_STATUS).map(([value, label]) => h('option', { value }, label)));
+    select.value = task.status;
+    const overdue = task.due && task.due < today() && task.status !== 'done';
+    return h('article', { class: `task-card ${compact ? 'compact' : ''}` }, h('span', { class: 'pill' }, AREAS[task.area] || 'Otros'), h('h3', {}, task.title), h('p', { class: `source-label ${overdue ? 'overdue' : ''}` }, `${overdue ? 'Fecha pasada · ' : ''}${dueText(task.due)}`), !compact && task.notes ? h('p', { class: 'muted notes-text' }, task.notes) : null, h('div', { class: 'row' }, select, button('Editar', () => openTaskEditor(task), 'button ghost small')));
+  }
+  function renderWeek() {
+    view.append(h('div', { class: 'section-heading' }, h('div', {}, h('h2', {}, 'Tu siguiente paso, a la vista'), h('p', { class: 'muted' }, 'Aquí están todas las tareas que añadiste. Las sugerencias del inicio no cuentan como compromisos.')), button('Nueva tarea', () => openTaskEditor(), 'button primary')));
+    view.append(h('div', { class: 'kanban' }, Object.entries(TASK_STATUS).map(([status, label]) => {
+      const tasks = workspace.tasks.filter(t => t.status === status).sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999'));
+      return h('section', { class: 'kanban-column', 'aria-label': label }, h('div', { class: 'section-heading' }, h('h3', {}, label), h('span', { class: 'count' }, tasks.length)), tasks.length ? h('div', { class: 'stack' }, tasks.map(t => taskCard(t))) : h('p', { class: 'empty-column muted' }, status === 'pending' ? 'Añade una acción que quieras realizar.' : status === 'doing' ? 'Cambia el estado de una tarea cuando empieces.' : 'Tus avances aparecerán aquí.'));
+    })));
+  }
+  function openProjectEditor(existing = null, conversation = null) {
+    const project = existing || { name: '', cui: '', role: '', version: '', status: 'por-confirmar', nextAction: '', source: conversation ? `${conversation.title} · ${conversation.source}` : '', notes: '' };
+    const modal = createDialog(existing ? 'Editar ficha de proyecto' : 'Nueva ficha de proyecto');
+    const form = h('form', { class: 'stack' }, h('p', { class: 'muted' }, 'Conserva la fuente. Completa solo datos confirmados del proyecto real.'),
+      field('Nombre del proyecto', 'name', project.name, { required: true, maxlength: 300 }),
+      h('div', { class: 'form-grid' }, field('CUI, si corresponde', 'cui', project.cui, { maxlength: 40 }), field('Tu función o designación', 'role', project.role), field('Última versión', 'version', project.version, { maxlength: 120 }), selectField('Estado confirmado', 'status', PROJECT_STATUS, project.status)),
+      field('Siguiente acción', 'nextAction', project.nextAction), field('Documento, referencia o enlace de origen', 'source', project.source, { multiline: true, rows: 2, maxlength: 2000 }), field('Datos por comprobar y notas', 'notes', project.notes, { multiline: true }),
+      h('div', { class: 'modal-actions' }, existing ? button('Eliminar ficha', () => { if (confirm('¿Eliminar esta ficha de proyecto?')) { workspace.projects = workspace.projects.filter(p => p.id !== existing.id); persist(); modal.dialog.close(); render(); toast('Ficha eliminada.'); } }, 'button ghost danger') : null,
+        button('Cancelar', () => modal.dialog.close(), 'button secondary'), h('button', { type: 'submit', class: 'button primary' }, 'Guardar ficha')));
+    form.addEventListener('submit', e => {
+      e.preventDefault(); const data = new FormData(form); const name = String(data.get('name') || '').trim();
+      if (!name) { form.elements.name.setCustomValidity('Escribe el nombre del proyecto.'); form.elements.name.reportValidity(); return; }
+      const next = { id: existing?.id || uid(), name, cui: String(data.get('cui') || '').trim(), role: String(data.get('role') || '').trim(), version: String(data.get('version') || '').trim(), status: data.get('status'), nextAction: String(data.get('nextAction') || '').trim(), source: String(data.get('source') || '').trim(), notes: String(data.get('notes') || '').trim() };
+      workspace.projects = existing ? workspace.projects.map(p => p.id === existing.id ? next : p) : [...workspace.projects, next];
+      persist(); modal.dialog.close(); navigate('projects'); toast('Ficha de proyecto guardada.');
+    });
+    form.elements.name.addEventListener('input', () => form.elements.name.setCustomValidity(''));
+    modal.body.append(form); modal.show(); form.elements.name.focus();
+  }
+  function downloadFile(name, data, type) {
+    const url = URL.createObjectURL(new Blob([data], { type }));
+    const link = h('a', { href: url, download: name });
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  }
+  function exportProject(project) {
+    const fields = [['CUI', project.cui], ['Función o designación', project.role], ['Última versión', project.version], ['Estado', PROJECT_STATUS[project.status]], ['Siguiente acción', project.nextAction], ['Fuente', project.source], ['Notas y datos por comprobar', project.notes]];
+    const content = `# ${project.name}\n\n${fields.map(([key, value]) => `**${key}:** ${value || 'Por confirmar'}`).join('\n\n')}\n\nGenerado en Chinitex. Los campos reflejan lo registrado por su usuario.\n`;
+    const safeName = project.name.replace(/[^\p{L}\p{N} -]/gu, '').trim().slice(0, 60) || 'proyecto';
+    downloadFile(`Ficha-${safeName}.md`, content, 'text/markdown;charset=utf-8'); toast('Ficha descargada.');
+  }
+  function renderProjects() {
+    view.append(h('div', { class: 'section-heading' }, h('div', {}, h('h2', {}, 'Cada proyecto con su fuente'), h('p', { class: 'muted' }, 'Las fichas las completas tú. Una referencia del historial puede servir de antecedente o de modelo.')), button('Nueva ficha', () => openProjectEditor(), 'button primary')));
+    if (!workspace.projects.length) { view.append(empty('Tu primer proyecto empieza aquí', 'Registra la fuente, la versión actual y una siguiente acción. También puedes crear una ficha desde una conversación.', button('Crear ficha de proyecto', () => openProjectEditor(), 'button primary'))); return; }
+    const cards = workspace.projects.map(project => h('article', { class: 'project-card card' }, h('span', { class: 'pill' }, PROJECT_STATUS[project.status]), h('h3', {}, project.name),
+      h('dl', { class: 'project-facts' }, h('dt', {}, 'CUI'), h('dd', {}, project.cui || 'No registrado'), h('dt', {}, 'Función'), h('dd', {}, project.role || 'Por confirmar'), h('dt', {}, 'Versión'), h('dd', {}, project.version || 'Por confirmar')),
+      h('div', { class: 'project-next' }, h('span', { class: 'source-label' }, 'SIGUIENTE ACCIÓN'), h('p', {}, project.nextAction || 'Por definir')),
+      h('p', { class: 'source-label source-text' }, `Fuente: ${project.source || 'Por registrar'}`),
+      h('div', { class: 'row' }, button('Editar ficha', () => openProjectEditor(project), 'button secondary small'), button('Descargar ficha', () => exportProject(project), 'button ghost small'))));
+    view.append(h('div', { class: 'project-grid' }, cards));
+  }
+  function render() {
+    view.replaceChildren();
+    if (currentView === 'home') renderHome();
+    else if (currentView === 'library') renderLibrary();
+    else if (currentView === 'projects') renderProjects();
+    else renderWeek();
+  }
+  async function importFiles(files) {
+    if (!files.length) return;
+    const trigger = document.getElementById('import-trigger'); trigger.disabled = true; trigger.textContent = 'Leyendo archivos…';
+    try {
+      const imported = []; const backups = []; let ignored = 0;
+      for (const file of files) {
+        let data;
+        try { data = JSON.parse(await file.text()); } catch { throw new Error(`No pude leer ${file.name} como JSON válido. No se cambió tu biblioteca.`); }
+        if (data?.format === 'chinitex-backup') { backups.push(Core.parseBackup(data)); continue; }
+        const normalized = Core.extractConversations(data, file.name);
+        if (normalized.length) imported.push(...normalized); else ignored++;
+      }
+      if (backups.length) {
+        if (backups.length !== 1 || imported.length || files.length !== 1) throw new Error('Para restaurar una copia, selecciona solo ese archivo.');
+        if (!confirm('¿Restaurar esta copia? Reemplazará la biblioteca, las tareas y las fichas actuales.')) return;
+        archive = backups[0].archive; workspace = backups[0].state; persist(); filters = { ...filters, query: '', area: 'all', modelsOnly: false, bookmarkedOnly: false }; searchInput.value = ''; navigate('home'); toast('Copia restaurada. Tu historial y tus cambios están disponibles.');
+      } else {
+        if (!imported.length) throw new Error('No encontré conversaciones en esos archivos. Selecciona los JSON conversations de tu exportación.');
+        const before = archive.length; archive = Core.mergeConversations(archive, imported); visibleResults = 24; navigate('library');
+        toast(`${archive.length} conversaciones disponibles · ${archive.length - before} nuevas${ignored ? ` · ${ignored} archivos auxiliares omitidos` : ''}. Guarda una copia para conservar la importación.`);
+      }
+    } catch (error) { toast(error.message || 'No pude importar los archivos. Tu biblioteca sigue igual.'); }
+    finally { trigger.disabled = false; trigger.textContent = 'Importar'; importInput.value = ''; }
+  }
+  for (const nav of document.querySelectorAll('[data-view]')) nav.addEventListener('click', () => navigate(nav.dataset.view));
+  document.getElementById('import-trigger').addEventListener('click', () => importInput.click());
+  importInput.addEventListener('change', () => importFiles([...importInput.files]));
+  document.getElementById('export-backup').addEventListener('click', () => {
+    const backup = Core.makeBackup(archive, workspace);
+    downloadFile(`Chinitex-copia-${today()}.json`, JSON.stringify(backup), 'application/json;charset=utf-8'); toast('Copia descargada con tu historial, tareas, fichas y referencias.');
+  });
+  document.getElementById('quick-task').addEventListener('click', () => openTaskEditor());
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => { filters.query = searchInput.value; visibleResults = 24; navigate('library'); }, 140);
+  });
+  searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { clearTimeout(searchTimer); filters.query = searchInput.value; visibleResults = 24; navigate('library'); } });
+  navigate('home');
+})();
+
+</script>
+  </body>
+</html>

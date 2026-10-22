@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#174c5b">
+    <meta name="description" content="Tus proyectos, conversaciones e ideas, en un lugar para avanzar.">
+    <title>Chinitex · Tu espacio para avanzar</title>
+    <!--APP_STYLES-->
+  </head>
+  <body>
+    <a class="skip-link" href="#view">Ir al contenido</a>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand" aria-label="Chinitex">
+          <span class="brand-mark" aria-hidden="true">c<span></span></span>
+          <div><strong>Chinitex</strong><span>Tu espacio para avanzar</span></div>
+        </div>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <button class="nav-button is-active" type="button" data-view="home" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19Z"/><path d="M9 20.5v-7h6v7"/></svg>
+            <span>Inicio</span>
+          </button>
+          <button class="nav-button" type="button" data-view="library">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3.5h4v17H5zM9 3.5h4v17H9zM14 4.5l3.6-1 4.2 16.4-3.7 1z"/></svg>
+            <span>Biblioteca</span>
+          </button>
+          <button class="nav-button" type="button" data-view="projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3.5 7.5V5A1.5 1.5 0 0 1 5 3.5h5l2 3h7A1.5 1.5 0 0 1 20.5 8v11a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19Z"/><path d="M3.5 9.5h17"/></svg>
+            <span>Proyectos</span>
+          </button>
+          <button class="nav-button" type="button" data-view="week">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 2.5v6m9-6v6M3.5 10.5h17m-13 4h3m3 0h3m-9 3h3"/></svg>
+            <span>Mi semana</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="note-symbol" aria-hidden="true">✦</span>
+          <p>Lo que ya trabajaste también puede ayudarte hoy.</p>
+          <span>Busca, reúne y sigue avanzando.</span>
+        </div>
+
+        <footer class="sidebar-footer">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Guarda una copia para conservar tus cambios.</span>
+        </footer>
+      </aside>
+
+      <div class="workspace">
+        <header class="workspace-header">
+          <div class="page-intro">
+            <span class="eyebrow">HECHO PARA TU DÍA A DÍA</span>
+            <h1 id="page-title">Tu espacio de hoy</h1>
+          </div>
+          <div class="header-actions">
+            <button id="import-trigger" class="button ghost" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 14v5a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-5"/></svg>
+              <span>Importar chats</span>
+            </button>
+            <input id="import-files" type="file" multiple accept=".json,application/json" hidden>
+            <button id="export-backup" class="button secondary" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M4 14v5a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-5"/></svg>
+              <span>Guardar copia</span>
+            </button>
+            <button id="quick-task" class="button primary" type="button"><span aria-hidden="true">＋</span><span>Nueva tarea</span></button>
+          </div>
+          <label class="search-box" for="global-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+            <span class="screen-reader-only">Buscar en todo el historial de conversaciones</span>
+            <input id="global-search" type="search" placeholder="Busca un informe, un modelo o una idea…" autocomplete="off">
+          </label>
+        </header>
+
+        <main id="view" tabindex="-1" aria-label="Contenido principal"></main>
+        <noscript><div class="card">Activa JavaScript en tu navegador para buscar en tus chats y organizar tus proyectos.</div></noscript>
+      </div>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+    <!--APP_SCRIPT-->
+  </body>
+</html>
